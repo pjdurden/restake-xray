@@ -1,10 +1,76 @@
-<!doctype html><html><head><meta charset="utf-8">
-<title>restake-xray</title><link rel="stylesheet" href="style.css"></head>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>restake-xray — restaking exposure map</title>
+<meta name="description" content="The open, verifiable on-chain map of what backs every liquid restaking token (LRT).">
+<link rel="stylesheet" href="style.css">
+</head>
 <body>
-<h1>restake-xray</h1>
-<p id="meta">loading…</p>
-<h2>LRTs</h2><table id="lrts"><thead><tr><th>LRT</th><th>Restaked</th><th>Operators</th><th>Concentration</th></tr></thead><tbody></tbody></table>
-<h2>Systemic operators</h2><table id="systemic"><thead><tr><th>Operator</th><th>Total restaked</th><th>LRTs</th><th>AVSs</th></tr></thead><tbody></tbody></table>
-<h2>Contagion</h2><table id="contagion"><thead><tr><th>A</th><th>B</th><th>Shared ops</th><th>Shared AVSs</th><th>Score</th></tr></thead><tbody></tbody></table>
-<h2>Warnings</h2><table id="warnings"><thead><tr><th>Severity</th><th>LRT</th><th>Message</th></tr></thead><tbody></tbody></table>
-<script src="app.js"></script></body></html>
+<div class="wrap">
+
+  <header>
+    <div class="brand">restake&#8203;-xray</div>
+    <p class="tag">The open, verifiable map of what actually backs every liquid restaking token —
+      which operators, which AVSs, which collateral, and where they overlap. Read straight from chain.</p>
+    <div class="meta">
+      <span class="pill" id="protocol">—</span>
+      <span class="pill" id="block">—</span>
+      <span class="pill" id="invariants">—</span>
+      <span id="updated" class="mut"></span>
+    </div>
+  </header>
+
+  <section id="stats" class="stats"></section>
+
+  <section>
+    <h2>Liquid restaking tokens</h2>
+    <div class="tablewrap">
+      <table id="lrts">
+        <thead><tr><th>LRT</th><th class="num">Restaked</th><th class="num">Operators</th><th>Operator concentration (HHI)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Systemic operators <span class="sub">single points of failure, by restaked value</span></h2>
+    <div class="tablewrap">
+      <table id="systemic">
+        <thead><tr><th>Operator</th><th class="num">Total restaked</th><th>LRTs</th><th class="num">AVSs</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contagion <span class="sub">shared exposure between LRTs</span></h2>
+    <div class="tablewrap">
+      <table id="contagion">
+        <thead><tr><th>LRT A</th><th>LRT B</th><th class="num">Shared ops</th><th class="num">Shared AVSs</th><th class="num">Score</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Warnings</h2>
+    <div class="tablewrap">
+      <table id="warnings">
+        <thead><tr><th>Severity</th><th>LRT</th><th>Message</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://github.com/pjdurden/restake-xray" target="_blank" rel="noopener">GitHub</a>
+    <a id="datalink" href="../data/latest.json" target="_blank" rel="noopener">Raw dataset (JSON)</a>
+    <span class="mut">Numbers are read from chain and reconcile to their own invariants.</span>
+  </footer>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
