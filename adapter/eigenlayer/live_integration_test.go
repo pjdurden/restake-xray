@@ -10,6 +10,9 @@ import (
 // Skipped unless RPC_URL is set:
 //
 //	RPC_URL=https://ethereum-rpc.publicnode.com go test ./adapter/eigenlayer/ -run TestLiveLRT -v
+//
+// By default it reads the committed configs/lrts.json (ezETH + Renzo's
+// OperatorDelegator stakers) and asserts a non-zero restaked total.
 func TestLiveLRT(t *testing.T) {
 	rpc := os.Getenv("RPC_URL")
 	if rpc == "" {
@@ -25,20 +28,21 @@ func TestLiveLRT(t *testing.T) {
 		t.Fatalf("block number: %d err=%v", bn, err)
 	}
 
-	stakers := os.Getenv("CMETH_STAKERS")
-	if stakers == "" {
-		t.Skip("set CMETH_STAKERS (comma-separated EigenLayer staker addresses) to assert backing")
-	}
-	a := New(l, []LRTConfig{{
-		Symbol:  "cmETH",
-		Address: "0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA",
-		Extra:   map[string]string{"stakers": stakers},
-	}})
-	g, err := a.Snapshot(ctx)
+	cfgs, err := LoadConfigs("../../configs/lrts.json")
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(g.LRTs) == 0 || g.LRTs[0].Restaked == "" {
-		t.Fatal("live cmETH backing empty")
+	g, err := New(l, cfgs).Snapshot(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(g.LRTs) == 0 {
+		t.Fatal("no LRTs in snapshot")
+	}
+	if r := g.LRTs[0].Restaked; r == "" || r == "0" {
+		t.Fatalf("live %s backing empty (restaked=%q)", g.LRTs[0].Symbol, r)
+	}
+	if len(g.LRTs[0].Delegations) == 0 {
+		t.Fatal("no operator delegations resolved")
 	}
 }

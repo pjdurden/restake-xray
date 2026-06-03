@@ -1,0 +1,60 @@
+name: snapshot
+
+# Refreshes the published dataset + exposure-graph SVG on a schedule and commits
+# data/ back to the repo — no servers needed for the dataset / Pages dashboard.
+#
+# Prerequisites (Settings → Secrets and variables → Actions):
+#   RPC_URL  — an Ethereum mainnet RPC endpoint (e.g. an Ankr key URL, or a
+#              no-key public one like https://ethereum-rpc.publicnode.com)
+# And configs/lrts.json must have real `extra.stakers` set, otherwise the live
+# scan exits with "no stakers configured" and this job fails (by design).
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours
+  workflow_dispatch: {}       # allow manual runs from the Actions tab
+
+permissions:
+  contents: write             # needed to commit refreshed data/ back
+
+concurrency:
+  group: snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Install graphviz (for SVG render)
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Generate snapshot
+        env:
+          RPC_URL: ${{ secrets.RPC_URL }}
+          # Reach back to AVSDirectory's launch so operator->AVS edges populate.
+          # Slow on free RPCs; use a keyed endpoint (Ankr/Alchemy) in the RPC_URL secret.
+          XRAY_AVS_FROM_BLOCK: "19000000"
+        run: |
+          if [ -z "$RPC_URL" ]; then
+            echo "::warning::RPC_URL secret not set — skipping snapshot."
+            exit 0
+          fi
+          ./scripts/snapshot.sh
+
+      - name: Commit refreshed dataset
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "no dataset changes"
+          else
+            git commit -m "chore(data): refresh snapshot [skip ci]"
+            git push
+          fi

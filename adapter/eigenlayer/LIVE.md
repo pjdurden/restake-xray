@@ -19,14 +19,14 @@ current verified ABIs, and LRT-specific read logic.
    (verify against the current EigenLayer deployment before shipping):
    - DelegationManager `0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A`
    - AVSDirectory `0x135DDa560e946695d6f155dACaFC6f1F25C1F5AF`
-4. **`LRTBacking` per LRT** (start with one LRT, e.g. `cmETH`): this is the seam
+4. **`LRTBacking` per LRT** (start with one LRT, e.g. `ezETH`): this is the seam
    where deep restaking domain knowledge does the work — map the LRT to its operator
    delegations using the addresses in `LRTConfig.Extra`. Batch operator reads
    with multicall.
 5. **Integration test** (guarded by `RPC_URL`):
    `RPC_URL=<rpc> go test ./adapter/eigenlayer/ -run TestLiveLRT -v`
 6. **Record fixture:** dump the live reads at a pinned block into
-   `testdata/eigenlayer-pinned.json` and hand-verify cmETH's numbers once against
+   `testdata/eigenlayer-pinned.json` and hand-verify ezETH's numbers once against
    Etherscan, so the offline golden test runs against real recorded data.
 
 Everything upstream of `Reader` (graph, metrics, snapshot, CLI, API, dashboard)

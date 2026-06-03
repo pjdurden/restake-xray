@@ -1,10 +1,10 @@
 [
   {
-    "symbol": "cmETH",
-    "address": "0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA",
+    "symbol": "ezETH",
+    "address": "0xbf5495Efe5DB9ce00f80364C8B423567e58d2110",
     "extra": {
-      "stakers": "",
-      "_note": "Set 'stakers' to cmETH's EigenLayer staker contract address(es), comma-separated. Each staker is read via StrategyManager.getDeposits (collateral) and DelegationManager.delegatedTo (operator). Until set, live scan reports cmETH with no backing."
+      "stakers": "0xbAf5f3A05BD7Af6f3a0BBA207803bf77e2657c8F,0x0B1981a9Fcc24A445dE15141390d3E46DA0e425c,0x125B367C16C5858f11e12948404F7a1371a0FDa3,0x78524bEeAc12368e600457478738c233f436e9f6,0x38cDB1A8207264C1A07c42c43A4c3ED4bfab7CEA",
+      "_note": "ezETH (Renzo). 'stakers' are Renzo's OperatorDelegator contracts, enumerated on-chain from RestakeManager 0x74a09653A083691711cF8215a6ab074BB4e99ef5 (operatorDelegators[]). Each is read via DelegationManager.getDepositedShares (collateral) + delegatedTo (operator). Refresh if Renzo adds OperatorDelegators."
     }
   }
 ]

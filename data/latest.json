@@ -1,126 +1,89 @@
 {
   "schema_version": 2,
   "protocol": "eigenlayer",
-  "block": 20000000,
-  "timestamp": 1717400000,
+  "block": 25233742,
+  "timestamp": 0,
   "graph": {
-    "block": 20000000,
-    "timestamp": 1717400000,
+    "block": 25233742,
+    "timestamp": 0,
     "protocol": "eigenlayer",
     "lrts": [
       {
-        "address": "0xcmETH",
-        "symbol": "cmETH",
-        "restaked": "1000",
-        "collateral": [
-          {
-            "token": "0xbeacon",
-            "symbol": "ETH",
-            "amount": "1000",
-            "decimals": 18
-          }
-        ],
-        "delegations": [
-          {
-            "operator": "0xop1",
-            "amount": "600"
-          },
-          {
-            "operator": "0xop2",
-            "amount": "400"
-          }
-        ]
-      },
-      {
-        "address": "0xezETH",
+        "address": "0xbf5495Efe5DB9ce00f80364C8B423567e58d2110",
         "symbol": "ezETH",
-        "restaked": "800",
+        "restaked": "45312258706723000000026",
         "collateral": [
           {
-            "token": "0xbeacon",
-            "symbol": "ETH",
-            "amount": "800",
-            "decimals": 18
+            "token": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+            "symbol": "",
+            "amount": "26",
+            "decimals": 0
+          },
+          {
+            "token": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0",
+            "symbol": "",
+            "amount": "45312258706723000000000",
+            "decimals": 0
           }
         ],
         "delegations": [
           {
-            "operator": "0xop2",
-            "amount": "500"
+            "operator": "0x3f98f47d302a3cfd3746fe35f7cf10c3217e5272",
+            "amount": "17200297565648000000004"
           },
           {
-            "operator": "0xop3",
-            "amount": "300"
+            "operator": "0x5cd6fdfad710609c828feba2508bcaf89e80501a",
+            "amount": "1"
+          },
+          {
+            "operator": "0x865cae37b4f44e73ea1e79577c5bfc6207c98f16",
+            "amount": "1"
+          },
+          {
+            "operator": "0xdfcb21ac9b99de986d99f4ce5fce2a6542efe3a1",
+            "amount": "28111961141075000000001"
+          },
+          {
+            "operator": "0x5dcdf02a7188257b7c37dd3158756da9ccd4a9cb",
+            "amount": "19"
           }
         ]
       }
     ],
     "operators": [
       {
-        "address": "0xop1",
-        "name": "P2P",
-        "avss": [
-          "0xavsDA"
-        ]
-      },
-      {
-        "address": "0xop2",
-        "name": "Luganodes",
-        "avss": [
-          "0xavsDA",
-          "0xavsORACLE"
-        ]
-      },
-      {
-        "address": "0xop3",
+        "address": "0x3f98f47d302a3cfd3746fe35f7cf10c3217e5272",
         "name": "",
-        "avss": [
-          "0xavsORACLE"
-        ]
+        "avss": null
+      },
+      {
+        "address": "0x5cd6fdfad710609c828feba2508bcaf89e80501a",
+        "name": "",
+        "avss": null
+      },
+      {
+        "address": "0x5dcdf02a7188257b7c37dd3158756da9ccd4a9cb",
+        "name": "",
+        "avss": null
+      },
+      {
+        "address": "0x865cae37b4f44e73ea1e79577c5bfc6207c98f16",
+        "name": "",
+        "avss": null
+      },
+      {
+        "address": "0xdfcb21ac9b99de986d99f4ce5fce2a6542efe3a1",
+        "name": "",
+        "avss": null
       }
     ],
-    "avss": [
-      {
-        "address": "0xavsDA",
-        "name": "EigenDA"
-      },
-      {
-        "address": "0xavsORACLE",
-        "name": ""
-      }
-    ]
+    "avss": null
   },
   "concentration": {
-    "cmETH": 0.52,
-    "ezETH": 0.53125
+    "ezETH": 0.5289948266665144
   },
-  "contagion": [
-    {
-      "a": "cmETH",
-      "b": "ezETH",
-      "shared_operators": [
-        "0xop2"
-      ],
-      "shared_avss": [
-        "0xavsDA",
-        "0xavsORACLE"
-      ],
-      "score": 1
-    }
-  ],
+  "contagion": null,
   "invariants": [
-    {
-      "name": "delegations_reconcile_restaked",
-      "lrt": "cmETH",
-      "ok": true,
-      "detail": "rel diff 0.0000%"
-    },
-    {
-      "name": "delegations_reference_known_operators",
-      "lrt": "cmETH",
-      "ok": true,
-      "detail": "missing operators: []"
-    },
     {
       "name": "delegations_reconcile_restaked",
       "lrt": "ezETH",
@@ -137,80 +100,59 @@
   "systemic": {
     "operators": [
       {
-        "operator": "0xop2",
-        "name": "Luganodes",
-        "total_amount": "900",
-        "lrts": [
-          "cmETH",
-          "ezETH"
-        ],
-        "avss": [
-          "0xavsDA",
-          "0xavsORACLE"
-        ]
-      },
-      {
-        "operator": "0xop1",
-        "name": "P2P",
-        "total_amount": "600",
-        "lrts": [
-          "cmETH"
-        ],
-        "avss": [
-          "0xavsDA"
-        ]
-      },
-      {
-        "operator": "0xop3",
+        "operator": "0xdfcb21ac9b99de986d99f4ce5fce2a6542efe3a1",
         "name": "",
-        "total_amount": "300",
+        "total_amount": "28111961141075000000000",
         "lrts": [
           "ezETH"
         ],
-        "avss": [
-          "0xavsORACLE"
-        ]
+        "avss": null
+      },
+      {
+        "operator": "0x3f98f47d302a3cfd3746fe35f7cf10c3217e5272",
+        "name": "",
+        "total_amount": "17200297565648000000000",
+        "lrts": [
+          "ezETH"
+        ],
+        "avss": null
+      },
+      {
+        "operator": "0x5dcdf02a7188257b7c37dd3158756da9ccd4a9cb",
+        "name": "",
+        "total_amount": "19",
+        "lrts": [
+          "ezETH"
+        ],
+        "avss": null
+      },
+      {
+        "operator": "0x5cd6fdfad710609c828feba2508bcaf89e80501a",
+        "name": "",
+        "total_amount": "1",
+        "lrts": [
+          "ezETH"
+        ],
+        "avss": null
+      },
+      {
+        "operator": "0x865cae37b4f44e73ea1e79577c5bfc6207c98f16",
+        "name": "",
+        "total_amount": "1",
+        "lrts": [
+          "ezETH"
+        ],
+        "avss": null
       }
     ],
-    "avss": [
-      {
-        "avs": "0xavsDA",
-        "name": "EigenDA",
-        "operators": [
-          "0xop1",
-          "0xop2"
-        ],
-        "lrts": [
-          "cmETH",
-          "ezETH"
-        ]
-      },
-      {
-        "avs": "0xavsORACLE",
-        "name": "",
-        "operators": [
-          "0xop2",
-          "0xop3"
-        ],
-        "lrts": [
-          "cmETH",
-          "ezETH"
-        ]
-      }
-    ]
+    "avss": []
   },
   "warnings": [
     {
       "severity": "warn",
-      "lrt": "cmETH",
-      "code": "high_concentration",
-      "message": "operator concentration HHI 0.520 \u003e= 0.50"
-    },
-    {
-      "severity": "warn",
       "lrt": "ezETH",
       "code": "high_concentration",
-      "message": "operator concentration HHI 0.531 \u003e= 0.50"
+      "message": "operator concentration HHI 0.529 \u003e= 0.50"
     }
   ]
 }

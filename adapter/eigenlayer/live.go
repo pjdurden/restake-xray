@@ -19,6 +19,8 @@ import (
 	"context"
 	"fmt"
 	"math/big"
+	"os"
+	"strconv"
 	"strings"
 
 	"github.com/ethereum/go-ethereum"
@@ -34,33 +36,27 @@ import (
 // Mainnet core addresses (verified against the current EigenLayer deployment).
 const (
 	addrDelegationManager = "0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A"
-	addrStrategyManager   = "0x858646372CC42E1A627fcE94aa7A7033e7CF075A"
 	addrAVSDirectory      = "0x135DDa560e946695d6f155dACaFC6f1F25C1F5AF"
 )
 
 // avsRegEventSig is keccak256("OperatorAVSRegistrationStatusUpdated(address,address,uint8)").
 var avsRegEventSig = crypto.Keccak256Hash([]byte("OperatorAVSRegistrationStatusUpdated(address,address,uint8)"))
 
-const (
-	abiDelegationManager = `[
-	  {"name":"delegatedTo","type":"function","stateMutability":"view","inputs":[{"name":"staker","type":"address"}],"outputs":[{"name":"","type":"address"}]},
-	  {"name":"getOperatorShares","type":"function","stateMutability":"view","inputs":[{"name":"operator","type":"address"},{"name":"strategies","type":"address[]"}],"outputs":[{"name":"","type":"uint256[]"}]}
-	]`
-	abiStrategyManager = `[
-	  {"name":"getDeposits","type":"function","stateMutability":"view","inputs":[{"name":"staker","type":"address"}],"outputs":[{"name":"","type":"address[]"},{"name":"","type":"uint256[]"}]}
-	]`
-)
+// EigenLayer's slashing upgrade (ELIP-002) moved staker share accounting onto
+// DelegationManager.getDepositedShares; the legacy StrategyManager.getDeposits
+// now reads empty, so we use getDepositedShares.
+const abiDelegationManager = `[
+  {"name":"delegatedTo","type":"function","stateMutability":"view","inputs":[{"name":"staker","type":"address"}],"outputs":[{"name":"","type":"address"}]},
+  {"name":"getDepositedShares","type":"function","stateMutability":"view","inputs":[{"name":"staker","type":"address"}],"outputs":[{"name":"","type":"address[]"},{"name":"","type":"uint256[]"}]}
+]`
 
 // Live reads EigenLayer state directly from an Ethereum RPC endpoint.
 type Live struct {
 	ec    *ethclient.Client
 	block *big.Int // pinned snapshot block; all reads use it
 
-	dm common.Address
-	sm common.Address
-
+	dm    common.Address
 	dmABI abi.ABI
-	smABI abi.ABI
 
 	// avsFromBlock bounds the AVSDirectory log scan (public RPCs cap getLogs range).
 	avsFromBlock uint64
@@ -81,21 +77,22 @@ func NewLive(ctx context.Context, rpcURL string) (*Live, error) {
 	if err != nil {
 		return nil, err
 	}
-	smABI, err := abi.JSON(strings.NewReader(abiStrategyManager))
-	if err != nil {
-		return nil, err
-	}
 	from := uint64(0)
 	if head > 250_000 { // ~5 weeks of recent registrations by default
 		from = head - 250_000
+	}
+	// XRAY_AVS_FROM_BLOCK widens the operator->AVS log scan (e.g. 19000000 to
+	// reach AVSDirectory's M2 launch). Lower = more complete AVS edges, slower.
+	if v := os.Getenv("XRAY_AVS_FROM_BLOCK"); v != "" {
+		if b, err := strconv.ParseUint(v, 10, 64); err == nil {
+			from = b
+		}
 	}
 	return &Live{
 		ec:           ec,
 		block:        new(big.Int).SetUint64(head),
 		dm:           common.HexToAddress(addrDelegationManager),
-		sm:           common.HexToAddress(addrStrategyManager),
 		dmABI:        dmABI,
-		smABI:        smABI,
 		avsFromBlock: from,
 	}, nil
 }
@@ -116,7 +113,6 @@ func (l *Live) LRTBacking(ctx context.Context, cfg LRTConfig) (Backing, error) {
 		return Backing{}, fmt.Errorf("eigenlayer: no stakers configured for %s; set Extra.stakers in configs/lrts.json", cfg.Symbol)
 	}
 	dm := bind.NewBoundContract(l.dm, l.dmABI, l.ec, l.ec, l.ec)
-	sm := bind.NewBoundContract(l.sm, l.smABI, l.ec, l.ec, l.ec)
 
 	total := new(big.Int)
 	collByStrat := map[common.Address]*big.Int{}
@@ -125,8 +121,8 @@ func (l *Live) LRTBacking(ctx context.Context, cfg LRTConfig) (Backing, error) {
 	for _, staker := range stakers {
 		// strategies + shares for this staker
 		var depOut []interface{}
-		if err := sm.Call(l.callOpts(ctx), &depOut, "getDeposits", staker); err != nil {
-			return Backing{}, fmt.Errorf("getDeposits(%s): %w", staker, err)
+		if err := dm.Call(l.callOpts(ctx), &depOut, "getDepositedShares", staker); err != nil {
+			return Backing{}, fmt.Errorf("getDepositedShares(%s): %w", staker, err)
 		}
 		strategies, _ := depOut[0].([]common.Address)
 		shares, _ := depOut[1].([]*big.Int)
