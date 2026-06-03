@@ -82,7 +82,7 @@ async function main() {
   // contagion
   fillTable('#contagion', s.contagion, o => [
     o.a, o.b, len(o.shared_operators), len(o.shared_avss), (o.score ?? 0).toFixed(3),
-  ], 'No shared-exposure overlaps (needs ≥2 LRTs).');
+  ], 'No shared operators or AVSs detected — shared-AVS overlaps surface once the AVS scan runs at full depth.');
 
   // warnings
   const sev = v => (v === 'crit' || v === 'critical') ? 'crit' : (v === 'warn' ? 'warn' : 'info');

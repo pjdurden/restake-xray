@@ -4,7 +4,15 @@
     "address": "0xbf5495Efe5DB9ce00f80364C8B423567e58d2110",
     "extra": {
       "stakers": "0xbAf5f3A05BD7Af6f3a0BBA207803bf77e2657c8F,0x0B1981a9Fcc24A445dE15141390d3E46DA0e425c,0x125B367C16C5858f11e12948404F7a1371a0FDa3,0x78524bEeAc12368e600457478738c233f436e9f6,0x38cDB1A8207264C1A07c42c43A4c3ED4bfab7CEA",
-      "_note": "ezETH (Renzo). 'stakers' are Renzo's OperatorDelegator contracts, enumerated on-chain from RestakeManager 0x74a09653A083691711cF8215a6ab074BB4e99ef5 (operatorDelegators[]). Each is read via DelegationManager.getDepositedShares (collateral) + delegatedTo (operator). Refresh if Renzo adds OperatorDelegators."
+      "_note": "ezETH (Renzo). stakers = OperatorDelegator contracts, enumerated on-chain from RestakeManager 0x74a09653A083691711cF8215a6ab074BB4e99ef5 (operatorDelegators[])."
+    }
+  },
+  {
+    "symbol": "rsETH",
+    "address": "0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7",
+    "extra": {
+      "stakers": "0xFc561966ceaAa09f4d6CBa4AdD54778c2bF1cB85,0x395884D1974a839702bcFCBa176AC7871c788946,0x79f17234746344E0365D40be50d8d43DB9082c32,0x4C798C4653b1257D5149910523D7a6eeD5712F83,0xee5470E1519972C3eA95249d60EBD064af2D53D3,0x049EA11D337f185b1Aa910d98e8Fbd991f0FBA7B,0x545D69B99759E7b670Df243b882700121d6d3AB9",
+      "_note": "rsETH (Kelp). stakers = NodeDelegator contracts, enumerated on-chain from LRTDepositPool 0x036676389e48133B63a802f8635AD39E752D375D (getNodeDelegatorQueue). Each read via DelegationManager.getDepositedShares + delegatedTo."
     }
   }
 ]

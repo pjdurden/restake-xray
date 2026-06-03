@@ -1,10 +1,10 @@
 {
   "schema_version": 2,
   "protocol": "eigenlayer",
-  "block": 25233742,
+  "block": 25233881,
   "timestamp": 0,
   "graph": {
-    "block": 25233742,
+    "block": 25233881,
     "timestamp": 0,
     "protocol": "eigenlayer",
     "lrts": [
@@ -28,6 +28,10 @@
         ],
         "delegations": [
           {
+            "operator": "0x5dcdf02a7188257b7c37dd3158756da9ccd4a9cb",
+            "amount": "19"
+          },
+          {
             "operator": "0x3f98f47d302a3cfd3746fe35f7cf10c3217e5272",
             "amount": "17200297565648000000004"
           },
@@ -42,10 +46,41 @@
           {
             "operator": "0xdfcb21ac9b99de986d99f4ce5fce2a6542efe3a1",
             "amount": "28111961141075000000001"
+          }
+        ]
+      },
+      {
+        "address": "0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7",
+        "symbol": "rsETH",
+        "restaked": "516218787437387651338748",
+        "collateral": [
+          {
+            "token": "0x9d7ed45ee2e8fc5482fa2428f15c971e6369011d",
+            "symbol": "",
+            "amount": "48529909571673352532438",
+            "decimals": 0
           },
           {
-            "operator": "0x5dcdf02a7188257b7c37dd3158756da9ccd4a9cb",
-            "amount": "19"
+            "token": "0x93c4b944d05dfe6df7645a86cd2206016c51564d",
+            "symbol": "",
+            "amount": "323331157201946298806310",
+            "decimals": 0
+          },
+          {
+            "token": "0xbeac0eeeeeeeeeeeeeeeeeeeeeeeeeeeeeebeac0",
+            "symbol": "",
+            "amount": "144357720663768000000000",
+            "decimals": 0
+          }
+        ],
+        "delegations": [
+          {
+            "operator": "0xbe7d5f26f5d5f567d35a86dd4d7d02aced2d5bff",
+            "amount": "135705100405312362920155"
+          },
+          {
+            "operator": "0xdbed88d83176316fc46797b43adee927dc2ff2f5",
+            "amount": "380513687032075288418593"
           }
         ]
       }
@@ -72,6 +107,16 @@
         "avss": null
       },
       {
+        "address": "0xbe7d5f26f5d5f567d35a86dd4d7d02aced2d5bff",
+        "name": "",
+        "avss": null
+      },
+      {
+        "address": "0xdbed88d83176316fc46797b43adee927dc2ff2f5",
+        "name": "",
+        "avss": null
+      },
+      {
         "address": "0xdfcb21ac9b99de986d99f4ce5fce2a6542efe3a1",
         "name": "",
         "avss": null
@@ -80,7 +125,8 @@
     "avss": null
   },
   "concentration": {
-    "ezETH": 0.5289948266665144
+    "ezETH": 0.5289948266665144,
+    "rsETH": 0.612449022553635
   },
   "contagion": null,
   "invariants": [
@@ -95,10 +141,40 @@
       "lrt": "ezETH",
       "ok": true,
       "detail": "missing operators: []"
+    },
+    {
+      "name": "delegations_reconcile_restaked",
+      "lrt": "rsETH",
+      "ok": true,
+      "detail": "rel diff 0.0000%"
+    },
+    {
+      "name": "delegations_reference_known_operators",
+      "lrt": "rsETH",
+      "ok": true,
+      "detail": "missing operators: []"
     }
   ],
   "systemic": {
     "operators": [
+      {
+        "operator": "0xdbed88d83176316fc46797b43adee927dc2ff2f5",
+        "name": "",
+        "total_amount": "380513687032075260000000",
+        "lrts": [
+          "rsETH"
+        ],
+        "avss": null
+      },
+      {
+        "operator": "0xbe7d5f26f5d5f567d35a86dd4d7d02aced2d5bff",
+        "name": "",
+        "total_amount": "135705100405312370000000",
+        "lrts": [
+          "rsETH"
+        ],
+        "avss": null
+      },
       {
         "operator": "0xdfcb21ac9b99de986d99f4ce5fce2a6542efe3a1",
         "name": "",
@@ -153,6 +229,12 @@
       "lrt": "ezETH",
       "code": "high_concentration",
       "message": "operator concentration HHI 0.529 \u003e= 0.50"
+    },
+    {
+      "severity": "warn",
+      "lrt": "rsETH",
+      "code": "high_concentration",
+      "message": "operator concentration HHI 0.612 \u003e= 0.50"
     }
   ]
 }
