@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/prajjwalchittori/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/graph"
 )
 
 func sampleGraph() graph.Graph {

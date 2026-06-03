@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/prajjwalchittori/restake-xray/graph"
-	"github.com/prajjwalchittori/restake-xray/snapshot"
+	"github.com/pjdurden/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/snapshot"
 )
 
 func TestSummaryMentionsLRTAndConcentration(t *testing.T) {

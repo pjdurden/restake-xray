@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/prajjwalchittori/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/graph"
 )
 
 // Sample is an adapter.Protocol backed by a static JSON graph.

@@ -7,7 +7,7 @@ import (
 	"os"
 	"sort"
 
-	"github.com/prajjwalchittori/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/graph"
 )
 
 // SchemaVersion is bumped on any breaking change to the JSON shape.

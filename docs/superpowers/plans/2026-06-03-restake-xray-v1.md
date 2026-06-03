@@ -1962,7 +1962,7 @@ func TestLiveLRT(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	a := New(l, []LRTConfig{{Symbol: "cmETH", Address: "0x35fA164735182de50811E8e2E824cFb9B6118ac2"}})
+	a := New(l, []LRTConfig{{Symbol: "cmETH", Address: "0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA"}})
 	g, err := a.Snapshot(context.Background())
 	if err != nil {
 		t.Fatal(err)

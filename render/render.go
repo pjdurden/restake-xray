@@ -6,7 +6,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/prajjwalchittori/restake-xray/snapshot"
+	"github.com/pjdurden/restake-xray/snapshot"
 )
 
 // Summary renders a high-level overview of the snapshot.

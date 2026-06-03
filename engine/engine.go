@@ -4,10 +4,10 @@ package engine
 import (
 	"context"
 
-	"github.com/prajjwalchittori/restake-xray/adapter"
-	"github.com/prajjwalchittori/restake-xray/graph"
-	"github.com/prajjwalchittori/restake-xray/labels"
-	"github.com/prajjwalchittori/restake-xray/snapshot"
+	"github.com/pjdurden/restake-xray/adapter"
+	"github.com/pjdurden/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/labels"
+	"github.com/pjdurden/restake-xray/snapshot"
 )
 
 // Engine runs one or more protocol adapters and enriches the merged graph.

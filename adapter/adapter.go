@@ -5,7 +5,7 @@ package adapter
 import (
 	"context"
 
-	"github.com/prajjwalchittori/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/graph"
 )
 
 // Protocol populates the exposure graph for one restaking protocol.

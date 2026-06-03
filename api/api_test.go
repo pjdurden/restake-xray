@@ -6,8 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/prajjwalchittori/restake-xray/graph"
-	"github.com/prajjwalchittori/restake-xray/snapshot"
+	"github.com/pjdurden/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/snapshot"
 )
 
 func testSnap() snapshot.Snapshot {

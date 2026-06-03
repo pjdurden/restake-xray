@@ -4,7 +4,7 @@ package eigenlayer
 import (
 	"context"
 
-	"github.com/prajjwalchittori/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/graph"
 )
 
 // Reader is the narrow on-chain data port the adapter needs. The live

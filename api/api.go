@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/prajjwalchittori/restake-xray/snapshot"
+	"github.com/pjdurden/restake-xray/snapshot"
 )
 
 // Loader returns the current snapshot to serve.

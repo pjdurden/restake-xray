@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/prajjwalchittori/restake-xray/adapter"
-	"github.com/prajjwalchittori/restake-xray/adapter/sample"
-	"github.com/prajjwalchittori/restake-xray/labels"
+	"github.com/pjdurden/restake-xray/adapter"
+	"github.com/pjdurden/restake-xray/adapter/sample"
+	"github.com/pjdurden/restake-xray/labels"
 )
 
 func TestEngineSnapshotAppliesLabels(t *testing.T) {

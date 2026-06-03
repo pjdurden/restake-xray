@@ -1,0 +1,10 @@
+[
+  {
+    "symbol": "cmETH",
+    "address": "0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA",
+    "extra": {
+      "stakers": "",
+      "_note": "Set 'stakers' to cmETH's EigenLayer staker contract address(es), comma-separated. Each staker is read via StrategyManager.getDeposits (collateral) and DelegationManager.delegatedTo (operator). Until set, live scan reports cmETH with no backing."
+    }
+  }
+]

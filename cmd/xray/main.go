@@ -9,14 +9,15 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/prajjwalchittori/restake-xray/adapter"
-	"github.com/prajjwalchittori/restake-xray/adapter/sample"
-	"github.com/prajjwalchittori/restake-xray/api"
-	"github.com/prajjwalchittori/restake-xray/engine"
-	"github.com/prajjwalchittori/restake-xray/graph"
-	"github.com/prajjwalchittori/restake-xray/labels"
-	"github.com/prajjwalchittori/restake-xray/render"
-	"github.com/prajjwalchittori/restake-xray/snapshot"
+	"github.com/pjdurden/restake-xray/adapter"
+	"github.com/pjdurden/restake-xray/adapter/eigenlayer"
+	"github.com/pjdurden/restake-xray/adapter/sample"
+	"github.com/pjdurden/restake-xray/api"
+	"github.com/pjdurden/restake-xray/engine"
+	"github.com/pjdurden/restake-xray/graph"
+	"github.com/pjdurden/restake-xray/labels"
+	"github.com/pjdurden/restake-xray/render"
+	"github.com/pjdurden/restake-xray/snapshot"
 )
 
 func main() {
@@ -81,13 +82,44 @@ func buildSnapshot(fixture, labelsPath string) (snapshot.Snapshot, error) {
 	return e.Snapshot(context.Background())
 }
 
+// buildLiveSnapshot reads the exposure graph directly from chain via the
+// EigenLayer live reader (used when --rpc is set).
+func buildLiveSnapshot(rpc, lrtsPath, labelsPath string) (snapshot.Snapshot, error) {
+	ctx := context.Background()
+	reader, err := eigenlayer.NewLive(ctx, rpc)
+	if err != nil {
+		return snapshot.Snapshot{}, err
+	}
+	cfgs, err := eigenlayer.LoadConfigs(lrtsPath)
+	if err != nil {
+		return snapshot.Snapshot{}, err
+	}
+	a := eigenlayer.New(reader, cfgs)
+	var lp labels.Provider = labels.Noop{}
+	if labelsPath != "" {
+		if s, err := labels.LoadStatic(labelsPath); err == nil {
+			lp = s
+		}
+	}
+	e := engine.New([]adapter.Protocol{a}, lp)
+	return e.Snapshot(ctx)
+}
+
 func cmdScan(args []string) {
 	fs := flag.NewFlagSet("scan", flag.ExitOnError)
 	fixture, labelsPath, asJSON := commonFlags(fs)
 	out := fs.String("out", "", "write dataset JSON to this path")
+	rpc := fs.String("rpc", "", "Ethereum RPC URL (live mode; reads on-chain instead of --sample)")
+	lrtsPath := fs.String("lrts", "configs/lrts.json", "live LRT configs (used with --rpc)")
 	fs.Parse(args)
 
-	s, err := buildSnapshot(*fixture, *labelsPath)
+	var s snapshot.Snapshot
+	var err error
+	if *rpc != "" {
+		s, err = buildLiveSnapshot(*rpc, *lrtsPath, *labelsPath)
+	} else {
+		s, err = buildSnapshot(*fixture, *labelsPath)
+	}
 	must(err)
 	if *asJSON {
 		printJSON(s)
