@@ -1,0 +1,216 @@
+{
+  "schema_version": 2,
+  "protocol": "eigenlayer",
+  "block": 20000000,
+  "timestamp": 1717400000,
+  "graph": {
+    "block": 20000000,
+    "timestamp": 1717400000,
+    "protocol": "eigenlayer",
+    "lrts": [
+      {
+        "address": "0xcmETH",
+        "symbol": "cmETH",
+        "restaked": "1000",
+        "collateral": [
+          {
+            "token": "0xbeacon",
+            "symbol": "ETH",
+            "amount": "1000",
+            "decimals": 18
+          }
+        ],
+        "delegations": [
+          {
+            "operator": "0xop1",
+            "amount": "600"
+          },
+          {
+            "operator": "0xop2",
+            "amount": "400"
+          }
+        ]
+      },
+      {
+        "address": "0xezETH",
+        "symbol": "ezETH",
+        "restaked": "800",
+        "collateral": [
+          {
+            "token": "0xbeacon",
+            "symbol": "ETH",
+            "amount": "800",
+            "decimals": 18
+          }
+        ],
+        "delegations": [
+          {
+            "operator": "0xop2",
+            "amount": "500"
+          },
+          {
+            "operator": "0xop3",
+            "amount": "300"
+          }
+        ]
+      }
+    ],
+    "operators": [
+      {
+        "address": "0xop1",
+        "name": "P2P",
+        "avss": [
+          "0xavsDA"
+        ]
+      },
+      {
+        "address": "0xop2",
+        "name": "Luganodes",
+        "avss": [
+          "0xavsDA",
+          "0xavsORACLE"
+        ]
+      },
+      {
+        "address": "0xop3",
+        "name": "",
+        "avss": [
+          "0xavsORACLE"
+        ]
+      }
+    ],
+    "avss": [
+      {
+        "address": "0xavsDA",
+        "name": "EigenDA"
+      },
+      {
+        "address": "0xavsORACLE",
+        "name": ""
+      }
+    ]
+  },
+  "concentration": {
+    "cmETH": 0.52,
+    "ezETH": 0.53125
+  },
+  "contagion": [
+    {
+      "a": "cmETH",
+      "b": "ezETH",
+      "shared_operators": [
+        "0xop2"
+      ],
+      "shared_avss": [
+        "0xavsDA",
+        "0xavsORACLE"
+      ],
+      "score": 1
+    }
+  ],
+  "invariants": [
+    {
+      "name": "delegations_reconcile_restaked",
+      "lrt": "cmETH",
+      "ok": true,
+      "detail": "rel diff 0.0000%"
+    },
+    {
+      "name": "delegations_reference_known_operators",
+      "lrt": "cmETH",
+      "ok": true,
+      "detail": "missing operators: []"
+    },
+    {
+      "name": "delegations_reconcile_restaked",
+      "lrt": "ezETH",
+      "ok": true,
+      "detail": "rel diff 0.0000%"
+    },
+    {
+      "name": "delegations_reference_known_operators",
+      "lrt": "ezETH",
+      "ok": true,
+      "detail": "missing operators: []"
+    }
+  ],
+  "systemic": {
+    "operators": [
+      {
+        "operator": "0xop2",
+        "name": "Luganodes",
+        "total_amount": "900",
+        "lrts": [
+          "cmETH",
+          "ezETH"
+        ],
+        "avss": [
+          "0xavsDA",
+          "0xavsORACLE"
+        ]
+      },
+      {
+        "operator": "0xop1",
+        "name": "P2P",
+        "total_amount": "600",
+        "lrts": [
+          "cmETH"
+        ],
+        "avss": [
+          "0xavsDA"
+        ]
+      },
+      {
+        "operator": "0xop3",
+        "name": "",
+        "total_amount": "300",
+        "lrts": [
+          "ezETH"
+        ],
+        "avss": [
+          "0xavsORACLE"
+        ]
+      }
+    ],
+    "avss": [
+      {
+        "avs": "0xavsDA",
+        "name": "EigenDA",
+        "operators": [
+          "0xop1",
+          "0xop2"
+        ],
+        "lrts": [
+          "cmETH",
+          "ezETH"
+        ]
+      },
+      {
+        "avs": "0xavsORACLE",
+        "name": "",
+        "operators": [
+          "0xop2",
+          "0xop3"
+        ],
+        "lrts": [
+          "cmETH",
+          "ezETH"
+        ]
+      }
+    ]
+  },
+  "warnings": [
+    {
+      "severity": "warn",
+      "lrt": "cmETH",
+      "code": "high_concentration",
+      "message": "operator concentration HHI 0.520 \u003e= 0.50"
+    },
+    {
+      "severity": "warn",
+      "lrt": "ezETH",
+      "code": "high_concentration",
+      "message": "operator concentration HHI 0.531 \u003e= 0.50"
+    }
+  ]
+}

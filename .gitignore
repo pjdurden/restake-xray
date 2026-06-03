@@ -1,0 +1,7 @@
+/xray
+/dist/
+*.out
+.env
+
+# personal/local notes — never published
+*.local.md

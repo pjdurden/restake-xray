@@ -1,0 +1,5 @@
+{
+  "operators": {"0xop1": "P2P", "0xop2": "Luganodes"},
+  "avss": {"0xavsDA": "EigenDA"},
+  "tokens": {"0xbeacon": {"symbol": "ETH", "decimals": 18}}
+}

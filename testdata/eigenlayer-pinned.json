@@ -1,0 +1,14 @@
+{
+  "block": 20000000,
+  "backings": {
+    "0xcmETH": {
+      "restaked": "1000",
+      "collateral": [{"token":"0xbeacon","symbol":"ETH","amount":"1000","decimals":18}],
+      "delegations": [{"operator":"0xop1","amount":"600"},{"operator":"0xop2","amount":"400"}]
+    }
+  },
+  "operator_avss": {
+    "0xop1": ["0xavsDA"],
+    "0xop2": ["0xavsDA","0xavsORACLE"]
+  }
+}

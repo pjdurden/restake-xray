@@ -1,0 +1,19 @@
+digraph restake_xray {
+  rankdir=LR;
+  node [fontname="sans-serif"];
+  "LRT: cmETH" [shape=box, style=filled, fillcolor="#dbeafe"];
+  "LRT: ezETH" [shape=box, style=filled, fillcolor="#dbeafe"];
+  "Op: P2P" [shape=ellipse];
+  "Op: Luganodes" [shape=ellipse];
+  "Op: 0xop3" [shape=ellipse];
+  "AVS: EigenDA" [shape=diamond, style=filled, fillcolor="#fee2e2"];
+  "AVS: 0xavsO…ACLE" [shape=diamond, style=filled, fillcolor="#fee2e2"];
+  "LRT: cmETH" -> "Op: P2P" [label="600"];
+  "LRT: cmETH" -> "Op: Luganodes" [label="400"];
+  "LRT: ezETH" -> "Op: Luganodes" [label="500"];
+  "LRT: ezETH" -> "Op: 0xop3" [label="300"];
+  "Op: P2P" -> "AVS: EigenDA";
+  "Op: Luganodes" -> "AVS: EigenDA";
+  "Op: Luganodes" -> "AVS: 0xavsO…ACLE";
+  "Op: 0xop3" -> "AVS: 0xavsO…ACLE";
+}

@@ -1,0 +1,22 @@
+{
+  "block": 20000000,
+  "timestamp": 1717400000,
+  "protocol": "eigenlayer",
+  "lrts": [
+    {"address":"0xcmETH","symbol":"cmETH","restaked":"1000",
+     "collateral":[{"token":"0xbeacon","symbol":"ETH","amount":"1000","decimals":18}],
+     "delegations":[{"operator":"0xop1","amount":"600"},{"operator":"0xop2","amount":"400"}]},
+    {"address":"0xezETH","symbol":"ezETH","restaked":"800",
+     "collateral":[{"token":"0xbeacon","symbol":"ETH","amount":"800","decimals":18}],
+     "delegations":[{"operator":"0xop2","amount":"500"},{"operator":"0xop3","amount":"300"}]}
+  ],
+  "operators": [
+    {"address":"0xop1","name":"","avss":["0xavsDA"]},
+    {"address":"0xop2","name":"","avss":["0xavsDA","0xavsORACLE"]},
+    {"address":"0xop3","name":"","avss":["0xavsORACLE"]}
+  ],
+  "avss": [
+    {"address":"0xavsDA","name":""},
+    {"address":"0xavsORACLE","name":""}
+  ]
+}
